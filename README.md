@@ -15,6 +15,13 @@
 - CRA (Create React App)
 - Babel, Webpack
 - Styled-Components
+  ` npm i styled-components`
+  ` npm i --save-dev @types/styled-components`
+- React-hook-form
+  `npm i react-hook-form`
+- React-Helmet
+  `npm i react-helmet`
+  `npm i --save-dev @types/react-helmet`
 
 ### ToDo
 
