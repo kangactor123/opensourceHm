@@ -10,11 +10,17 @@ getFromLocalStroage :
   매개변수 id가 존재할 경우 해당 toDo만 반환, 
   아닐 경우 localStorage에서 조회한 전체 리스트 반환
 */
-function saveInLocalStroage(toDo: IToDo) {
-  localStorage.setItem("TODOS", JSON.stringify(toDo));
+export function saveInLocalStroage(toDo: IToDo) {
+  const oldToDos = JSON.parse(localStorage.getItem("TODOS") as any);
+  if (oldToDos === null) {
+    localStorage.setItem("TODOS", JSON.stringify([toDo]));
+  } else {
+    localStorage.setItem("TODOS", JSON.stringify([...oldToDos, toDo]));
+  }
+  console.log(localStorage.getItem("TODOS"));
 }
 
-function getFromLocalStroage(id?: number) {
+export function getFromLocalStroage(id?: number) {
   const toDos = JSON.parse(localStorage.getItem("TODOS") as any);
 
   //id가 존재할 경우 (선택 toDo 조회)

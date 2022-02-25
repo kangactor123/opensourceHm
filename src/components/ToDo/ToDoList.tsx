@@ -25,6 +25,7 @@ function ToDoList() {
       {temp.map((todo) => (
         <ToDoCard
           key={todo.id}
+          id={todo.id}
           text={todo.text}
           deadline={todo.deadline}
           done={todo.done}

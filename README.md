@@ -19,9 +19,10 @@
   ` npm i --save-dev @types/styled-components`
 - React-hook-form
   `npm i react-hook-form`
-- React-Helmet
-  `npm i react-helmet`
-  `npm i --save-dev @types/react-helmet`
+- Recoil
+  `npm i recoil`
+- Framer-motion
+  `npm i framer-motion`
 
 ### ToDo
 

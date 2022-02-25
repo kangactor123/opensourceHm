@@ -1,5 +1,7 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import { saveInLocalStroage } from "../api/\btoDoApi";
+import Button from "./common/Button";
 
 const Wrapper = styled.div`
   max-width: 660px;
@@ -22,7 +24,7 @@ export const InputBox = styled.form`
   position: relative;
 `;
 
-const InputDate = styled.input`
+export const InputDate = styled.input`
   font-size: 12px;
   height: 30%;
   padding: 10px;
@@ -31,7 +33,7 @@ const InputDate = styled.input`
   border-radius: 5px;
 `;
 
-const InputContents = styled.textarea`
+export const InputContents = styled.textarea`
   width: 100%;
   height: 80%;
   padding: 10px;
@@ -55,14 +57,41 @@ export const ButtonBox = styled.div`
 `;
 
 function InputSection() {
+  const [date, setDate] = useState("");
+  const [content, setContent] = useState("");
+  const changeDate = (event: React.FormEvent<HTMLInputElement>) => {
+    setDate(event.currentTarget.value);
+  };
+  const changeContent = (event: React.FormEvent<HTMLTextAreaElement>) => {
+    setContent(event.currentTarget.value);
+  };
+  const createToDo = () => {
+    const newToDo = {
+      id: Date.now(),
+      title: content,
+      deadline: date,
+      done: false,
+    };
+    saveInLocalStroage(newToDo);
+    setDate("");
+    setContent("");
+  };
   return (
     <Wrapper>
       <InputBox>
-        <InputDate type="date" />
-        <InputContents placeholder="할 것을 입력해주시오..." />
+        <InputDate type="date" value={date} onChange={changeDate} />
+        <InputContents
+          placeholder="할 것을 입력해주시오..."
+          value={content}
+          onChange={changeContent}
+        />
       </InputBox>
       <ButtonBox>
-        <Button text="생성하기" hoverColor="rgba(0,0,255,0.5)" />
+        <Button
+          text="생성하기"
+          hoverColor="rgba(0,0,255,0.5)"
+          clickFcn={createToDo}
+        />
         <Button text="삭제하기" hoverColor="rgba(255,0,0,0.5)" />
       </ButtonBox>
     </Wrapper>

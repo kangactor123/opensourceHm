@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Button from "../Button";
+import { IModal, modalActive } from "../../store";
+import Button from "../common/Button";
 
 const CardWrapper = styled.div<{ dead: boolean }>`
   display: flex;
@@ -38,14 +40,28 @@ const BtnBox = styled.div`
 `;
 
 interface ToDoProps {
+  id: number;
   text: string;
   deadline: number;
   done: boolean;
 }
 
 /* 기한 임박 시 테두리 빨간색으로 표기해야함 */
-function ToDoCard({ text, deadline, done }: ToDoProps) {
+/* 수정하기 누르면 Modal창 나와서 수정하자 */
+function ToDoCard({ id, text, deadline, done }: ToDoProps) {
   const [choose, setChoose] = useState(false);
+  const setModalActive = useSetRecoilState<IModal>(modalActive);
+  const modal = useRecoilValue(modalActive);
+  const modalClick = () => {
+    console.log(modal);
+    setModalActive((prev) => {
+      return {
+        active: !prev.active,
+        id,
+      };
+    });
+  };
+
   return (
     <CardWrapper dead={false}>
       <ContentBox>
@@ -53,8 +69,9 @@ function ToDoCard({ text, deadline, done }: ToDoProps) {
         <Content>123123</Content>
       </ContentBox>
       <BtnBox>
-        <Button text={done ? "아직이다" : "끝장냈다"} hoverColor="aqua" />
         <Button text="선택" bgColor={choose ? "red" : "lightgray"} />
+        <Button text={done ? "아직이다" : "끝장냈다"} hoverColor="aqua" />
+        <Button text="수정하자" clickFcn={modalClick} />
         <Button text="개별삭제" hoverColor="blue" />
       </BtnBox>
     </CardWrapper>

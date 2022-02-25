@@ -4,9 +4,10 @@ interface ButtonProps {
   hoverColor?: string;
   bgColor?: string;
   text: string;
+  clickFcn?: () => void;
 }
 
-const Btn = styled.button<{ hoverColor?: string; bgColor?: string }>`
+export const Btn = styled.button<{ hoverColor?: string; bgColor?: string }>`
   width: 100%;
   height: 30px;
   text-align: center;
@@ -14,6 +15,7 @@ const Btn = styled.button<{ hoverColor?: string; bgColor?: string }>`
   border-radius: 15px;
   background-color: ${(props) => props.bgColor};
   letter-spacing: 1px;
+  font-size: 0.7em;
   cursor: pointer;
   &:hover {
     color: white;
@@ -21,9 +23,14 @@ const Btn = styled.button<{ hoverColor?: string; bgColor?: string }>`
   }
 `;
 
-const Button = ({ hoverColor, text, bgColor = "lightgray" }: ButtonProps) => {
+const Button = ({
+  hoverColor,
+  text,
+  bgColor = "lightgray",
+  clickFcn,
+}: ButtonProps) => {
   return (
-    <Btn hoverColor={hoverColor} bgColor={bgColor}>
+    <Btn hoverColor={hoverColor} bgColor={bgColor} onClick={clickFcn}>
       {text}
     </Btn>
   );
