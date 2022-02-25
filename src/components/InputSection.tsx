@@ -1,17 +1,17 @@
 import styled from "styled-components";
+import Button from "./Button";
 
 const Wrapper = styled.div`
   max-width: 660px;
   height: 20vh;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  border: 1px solid black;
   display: flex;
   align-items: center;
   padding: 10px;
   margin: 10px;
 `;
 
-const InputBox = styled.form`
+export const InputBox = styled.form`
   padding: 10px;
   width: 70%;
   height: 100%;
@@ -19,6 +19,7 @@ const InputBox = styled.form`
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+  position: relative;
 `;
 
 const InputDate = styled.input`
@@ -44,28 +45,13 @@ const InputContents = styled.textarea`
   }
 `;
 
-const ButtonBox = styled.div`
+export const ButtonBox = styled.div`
   width: 30%;
   height: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
-
-const Button = styled.button<{ hoverColor: string }>`
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  border: 0;
-  border-radius: 15px;
-  background-color: lightgray;
-  letter-spacing: 1px;
-  cursor: pointer;
-  &:hover {
-    color: white;
-    background-color: ${(props) => props.hoverColor};
-  }
 `;
 
 function InputSection() {
@@ -76,8 +62,8 @@ function InputSection() {
         <InputContents placeholder="할 것을 입력해주시오..." />
       </InputBox>
       <ButtonBox>
-        <Button hoverColor="rgba(0,0,255,0.5)">생성하기</Button>
-        <Button hoverColor="rgba(255,0,0,0.5)">삭제하기</Button>
+        <Button text="생성하기" hoverColor="rgba(0,0,255,0.5)" />
+        <Button text="삭제하기" hoverColor="rgba(255,0,0,0.5)" />
       </ButtonBox>
     </Wrapper>
   );

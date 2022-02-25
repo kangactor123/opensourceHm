@@ -33,9 +33,10 @@ const AlertImg = styled.img`
 
 const PageSelecter = styled.select`
   width: 50px;
-  height: 30px;
+  height: 25px;
   margin-right: 20px;
-  background-color: beige;
+  border-radius: 5px;
+  background-color: inherit;
 `;
 
 function Header() {
