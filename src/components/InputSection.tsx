@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { saveInLocalStroage } from "../api/\btoDoApi";
+import { toDos } from "../store";
 import Button from "./common/Button";
 
 const Wrapper = styled.div`
@@ -59,6 +61,7 @@ export const ButtonBox = styled.div`
 function InputSection() {
   const [date, setDate] = useState("");
   const [content, setContent] = useState("");
+  const [localTodos, setLocalToDos] = useRecoilState(toDos);
   const changeDate = (event: React.FormEvent<HTMLInputElement>) => {
     setDate(event.currentTarget.value);
   };
@@ -72,6 +75,9 @@ function InputSection() {
       deadline: date,
       done: false,
     };
+    setLocalToDos(() => {
+      return [...localTodos, newToDo];
+    });
     saveInLocalStroage(newToDo);
     setDate("");
     setContent("");

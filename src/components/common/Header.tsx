@@ -1,4 +1,7 @@
+import React from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { paging } from "../../store";
 
 export const Wrapper = styled.header`
   max-width: 660px;
@@ -40,16 +43,25 @@ const PageSelecter = styled.select`
 `;
 
 function Header() {
+  const setPage = useSetRecoilState(paging);
+  const selectPaging = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPage((prev) => {
+      return {
+        pageValue: +event.currentTarget.value,
+        nowPage: prev.nowPage,
+      };
+    });
+  };
   return (
     <Wrapper>
-      <Logo>나는 오늘 이것들을 해야한다.</Logo>
+      <Logo>나는 이것들을 해야한다.</Logo>
       <ConfigWrap>
         <AlertImg
           src={`${process.env.PUBLIC_URL}/resource/img/alert.png`}
           alt="alert"
         />
-        <PageSelecter>
-          <option value={1}>5개</option>
+        <PageSelecter onChange={selectPaging}>
+          <option value={5}>5개</option>
           <option value={10}>10개</option>
           <option value={15}>15개</option>
           <option value={20}>20개</option>

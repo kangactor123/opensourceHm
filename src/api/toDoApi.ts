@@ -1,6 +1,7 @@
 import { IToDo } from "../interface";
 
 const BASE_URL = "/api/todos";
+const local = localStorage.getItem("TODOS") as any;
 
 //HTTP status 가 500 일 경우 서버가 offline이라고 가정
 
@@ -11,17 +12,18 @@ getFromLocalStroage :
   아닐 경우 localStorage에서 조회한 전체 리스트 반환
 */
 export function saveInLocalStroage(toDo: IToDo) {
-  const oldToDos = JSON.parse(localStorage.getItem("TODOS") as any);
-  if (oldToDos === null) {
+  //const oldToDos = local !== null || local !== "[]" ? JSON.parse(local) : [];
+  const oldToDos = local !== null ? JSON.parse(local) : [];
+  if (oldToDos.length === 0) {
     localStorage.setItem("TODOS", JSON.stringify([toDo]));
   } else {
     localStorage.setItem("TODOS", JSON.stringify([...oldToDos, toDo]));
   }
-  console.log(localStorage.getItem("TODOS"));
 }
 
 export function getFromLocalStroage(id?: number) {
-  const toDos = JSON.parse(localStorage.getItem("TODOS") as any);
+  //const toDos = local !== null || local !== "[]" ? [] : JSON.parse(local);
+  const toDos = local !== null ? JSON.parse(local) : [];
 
   //id가 존재할 경우 (선택 toDo 조회)
   if (id !== undefined) {
@@ -44,13 +46,13 @@ deleteFromLocalStorage :
 filter 함수를 이용해 해당하는 아이디를 걸러내고 나머지 toDo는 다시 localStorage에 저장
 */
 
-function updateFromLocalStorage(toDo: IToDo) {
+export function updateFromLocalStorage(toDo: IToDo) {
   const toDos = getFromLocalStroage();
   const newToDo = [
     ...toDos.filter((oldToDo: IToDo) => oldToDo.id !== toDo.id),
     toDo,
   ];
-  saveInLocalStroage(newToDo as any);
+  localStorage.setItem("TODOS", JSON.stringify(newToDo));
 }
 
 function deleteFromLocalStorage(id: number) {

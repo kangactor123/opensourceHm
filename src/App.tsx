@@ -36,7 +36,7 @@ function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <UpdateBoard id={1} />
+            <UpdateBoard />
           </Overlay>
         )}
       </AnimatePresence>

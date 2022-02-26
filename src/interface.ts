@@ -4,3 +4,15 @@ export interface IToDo {
   done: boolean;
   deadline: string;
 }
+
+export interface ItoDoType {
+  id: number;
+  title: string;
+  deadline: string;
+  done: boolean;
+}
+
+export interface IModal {
+  id: number;
+  active: boolean;
+}

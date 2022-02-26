@@ -1,8 +1,12 @@
 import { useViewportScroll } from "framer-motion";
-import React from "react";
-import { useSetRecoilState } from "recoil";
+import React, { useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { modalActive } from "../../store";
+import {
+  getFromLocalStroage,
+  updateFromLocalStorage,
+} from "../../api/\btoDoApi";
+import { modalActive, toDos } from "../../store";
 import { Btn } from "./Button";
 
 const Container = styled.div`
@@ -48,32 +52,47 @@ const Button = styled(Btn)`
   margin: 5px;
 `;
 
-interface UpdateProps {
-  id: number;
-}
-
 /* 수정하기 클릭했을 때 넘어오는 정보 api 이용해서 toDo 선택해오고 뿌려주자 */
-function UpdateBoard({ id }: UpdateProps) {
-  const temp = { id: 123, deadline: 123, done: false, content: "123123" };
-  const setModal = useSetRecoilState(modalActive);
+function UpdateBoard() {
+  const [modal, setModal] = useRecoilState(modalActive);
+  const [toDoList, setToDoList] = useRecoilState(toDos);
+  const [deadline, setDeadLine] = useState("");
+  const [title, setTitle] = useState("");
   const exitModal = () => {
     setModal((prev) => {
       return {
         active: !prev.active,
-        id,
+        id: modal.id,
       };
     });
   };
   const updateToDo = () => {
     /* update 처리 */
-    alert("update success");
+    console.log("modal: ", modal.id);
+    const newToDo = {
+      id: modal.id,
+      title,
+      deadline,
+      done: false,
+    };
+    updateFromLocalStorage(newToDo); //로컬에 업데이트
+    setToDoList(() => {
+      return [...toDoList.filter((todo) => todo.id !== modal.id), newToDo];
+    });
+    alert("업데이트 성공적");
     exitModal();
+  };
+  const changeDate = (event: React.FormEvent<HTMLInputElement>) => {
+    setDeadLine(event.currentTarget.value);
+  };
+  const changeTitle = (event: React.FormEvent<HTMLTextAreaElement>) => {
+    setTitle(event.currentTarget.value);
   };
   return (
     <Container style={{ top: 100 }}>
       <Form>
-        <UpdateDate type="date" />
-        <UpdateCotent value={temp.content} />
+        <UpdateDate type="date" onChange={changeDate} value={deadline} />
+        <UpdateCotent value={title} onChange={changeTitle} />
       </Form>
       <Button onClick={updateToDo}>수정하기</Button>
       <Button onClick={exitModal}>나가기</Button>
@@ -81,4 +100,4 @@ function UpdateBoard({ id }: UpdateProps) {
   );
 }
 
-export default UpdateBoard;
+export default React.memo(UpdateBoard);

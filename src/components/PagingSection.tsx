@@ -1,4 +1,7 @@
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getFromLocalStroage } from "../api/\btoDoApi";
+import { paging, toDos } from "../store";
 
 const Wrapper = styled.div`
   width: 60%;
@@ -25,12 +28,27 @@ const Page = styled.li`
 `;
 
 function PagingSection() {
-  const temp = [1, 2, 3, 4];
+  const [page, setPage] = useRecoilState(paging);
+  const toDoList = useRecoilValue(toDos);
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(toDoList.length / page.pageValue); i++) {
+    pageNumbers.push(i);
+  }
+  const clickPage = (page: number) => {
+    setPage((prev) => {
+      return {
+        nowPage: page,
+        pageValue: prev.pageValue,
+      };
+    });
+  };
   return (
     <Wrapper>
       <PageList>
-        {temp.map((item, index) => (
-          <Page key={index}>{item}</Page>
+        {pageNumbers.map((number) => (
+          <Page key={number} onClick={() => clickPage(number)}>
+            {number}
+          </Page>
         ))}
       </PageList>
     </Wrapper>

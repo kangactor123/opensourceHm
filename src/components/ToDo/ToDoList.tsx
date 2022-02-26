@@ -1,4 +1,7 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { ItoDoType } from "../../interface";
+import { paging, toDos } from "../../store";
 import ToDoCard from "./ToDoCard";
 
 const Wrapper = styled.div`
@@ -9,24 +12,40 @@ const Wrapper = styled.div`
   justify-content: center;
   padding: 10px;
 `;
+/*
+5 개 노출
+1 - (0,5)
+2 - (5,10)
+3 - (10,15)
+10 개 노출
+1 - (0, 10)
+2 - (10, 20)
+3 - (20, 30)
+15 개 노출
+1 - (0, 15)
+2 - (15, 30)
+3 - (30, 45)
+
+start = nowPage - 1 * value 
+end = nowPage * value
+
+
+*/
 
 function ToDoList() {
-  const temp = [
-    { id: 1, deadline: 123, text: "123123123", done: false },
-    { id: 2, deadline: 123, text: "123123123", done: false },
-    { id: 3, deadline: 123, text: "123123123", done: false },
-    { id: 4, deadline: 123, text: "123123123", done: false },
-    { id: 5, deadline: 123, text: "123123123", done: false },
-    { id: 6, deadline: 123, text: "123123123", done: false },
-    { id: 7, deadline: 123, text: "123123123", done: false },
-  ];
+  const localToDos = useRecoilValue<ItoDoType[]>(toDos);
+  const page = useRecoilValue(paging);
+  const list = localToDos.slice(
+    (page.nowPage - 1) * page.pageValue,
+    page.nowPage * page.pageValue
+  );
   return (
     <Wrapper>
-      {temp.map((todo) => (
+      {list.map((todo: ItoDoType) => (
         <ToDoCard
           key={todo.id}
           id={todo.id}
-          text={todo.text}
+          text={todo.title}
           deadline={todo.deadline}
           done={todo.done}
         />
