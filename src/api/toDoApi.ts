@@ -12,7 +12,7 @@ getFromLocalStroage :
   아닐 경우 localStorage에서 조회한 전체 리스트 반환
 */
 export function saveInLocalStroage(toDo: IToDo) {
-  const oldToDos = local === "[]" ? [] : JSON.parse(local);
+  const oldToDos = local === "[]" || local == null ? [] : JSON.parse(local);
 
   if (oldToDos.length == 0) {
     localStorage.setItem("TODOS", JSON.stringify([toDo]));

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { paging, toDos } from "../store";
@@ -30,6 +32,14 @@ function PagingSection() {
   const [page, setPage] = useRecoilState(paging);
   const toDoList = useRecoilValue(toDos);
   const pageNumbers = [];
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/opensourceHm");
+    }, 3000);
+  }, [toDoList]);
+
   for (let i = 1; i <= Math.ceil(toDoList.length / page.pageValue); i++) {
     pageNumbers.push(i);
   }

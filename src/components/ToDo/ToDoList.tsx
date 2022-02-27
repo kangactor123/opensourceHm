@@ -30,10 +30,13 @@ start = nowPage - 1 * value
 end = nowPage * value
 
 */
+const NoToDo = styled.div`
+  font-size: 1.3em;
+  font-family: "Times New Roman", Times, serif;
+`;
 
 function ToDoList() {
   const localToDos = useRecoilValue<IToDo[]>(toDos);
-  console.log("list", localToDos);
   const page = useRecoilValue(paging);
   const list = localToDos.slice(
     (page.nowPage - 1) * page.pageValue,
@@ -41,15 +44,19 @@ function ToDoList() {
   );
   return (
     <Wrapper>
-      {list.map((todo: IToDo) => (
-        <ToDoCard
-          key={todo.id}
-          id={todo.id}
-          text={todo.title}
-          deadline={todo.deadline}
-          done={todo.done}
-        />
-      ))}
+      {list.length == 0 ? (
+        <NoToDo>생성하신 ToDo가 없습니다.</NoToDo>
+      ) : (
+        list.map((todo: IToDo) => (
+          <ToDoCard
+            key={todo.id}
+            id={todo.id}
+            text={todo.title}
+            deadline={todo.deadline}
+            done={todo.done}
+          />
+        ))
+      )}
     </Wrapper>
   );
 }
