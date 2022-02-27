@@ -1,5 +1,3 @@
-## Open Source Consulting Homework
-
 ### 기한
 
 - 2022/02/24 ~ 2022/03/02
@@ -23,6 +21,8 @@
   `npm i recoil`
 - Framer-motion
   `npm i framer-motion`
+- gh-pages (배포)
+  `npm i gh-pages`
 
 ### ToDo
 
