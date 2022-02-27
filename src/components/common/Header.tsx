@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { paging } from "../../store";
@@ -32,6 +33,10 @@ const AlertImg = styled.img`
   width: 40px;
   height: 40px;
   cursor: pointer;
+  transition: all ease 1s;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const PageSelecter = styled.select`
@@ -44,6 +49,7 @@ const PageSelecter = styled.select`
 
 function Header() {
   const setPage = useSetRecoilState(paging);
+  const navigate = useNavigate();
   const selectPaging = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPage((prev) => {
       return {
@@ -52,13 +58,17 @@ function Header() {
       };
     });
   };
+  const goHome = () => {
+    navigate("/opensourceHm");
+  };
   return (
     <Wrapper>
       <Logo>나는 이것들을 해야한다.</Logo>
       <ConfigWrap>
         <AlertImg
-          src={`${process.env.PUBLIC_URL}/resource/img/alert.png`}
+          src={`${process.env.PUBLIC_URL}/resource/img/home.png`}
           alt="alert"
+          onClick={goHome}
         />
         <PageSelecter onChange={selectPaging}>
           <option value={5}>5개</option>

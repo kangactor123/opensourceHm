@@ -1,8 +1,11 @@
 import { IToDo } from "../interface";
-import { updateFromLocalStorage } from "../localStorage";
+import {
+  getFromLocalStroage,
+  saveInLocalStroage,
+  updateFromLocalStorage,
+} from "../localStorage";
 
 const BASE_URL = "/api/todos";
-const local = localStorage.getItem("TODOS") as string;
 
 //HTTP status 가 500 일 경우 서버가 offline이라고 가정
 /*
@@ -10,39 +13,6 @@ saveInLocalStroage : localStorage에 저장
 getFromLocalStroage : 
   매개변수 id가 존재할 경우 해당 toDo만 반환, 
   아닐 경우 localStorage에서 조회한 전체 리스트 반환
-*/
-export function saveInLocalStroage(toDo: IToDo) {
-  const oldToDos = local === "[]" || local == null ? [] : JSON.parse(local);
-
-  if (oldToDos.length == 0) {
-    localStorage.setItem("TODOS", JSON.stringify([toDo]));
-  } else if (oldToDos.length > 0) {
-    localStorage.setItem("TODOS", JSON.stringify([...oldToDos, toDo]));
-  }
-}
-
-export function getFromLocalStroage(id?: number) {
-  const toDos: IToDo[] = local !== null ? JSON.parse(local) : [];
-
-  //id가 존재할 경우 (선택 toDo 조회)
-  if (id !== undefined) {
-    for (let toDo of toDos) {
-      if (toDo.id === id) {
-        return [toDo];
-      }
-    }
-  }
-  return [...toDos];
-}
-
-/*
-updateFromLocalStorage :
-500상태 (Server 가 offline 일 경우) 일 때 localStorage에서 상태를 업데이트 하는 함수
-filter 함수를 이용해 해당하는 아이디를 걸러내고, 수정한 객체를 집어넣고 localStorage에 저장
-
-deleteFromLocalStorage :
-500상태 (Server 가 offline 일 경우) 일 때 localStorage에서 삭제하려는 toDo를 삭제하는 함수
-filter 함수를 이용해 해당하는 아이디를 걸러내고 나머지 toDo는 다시 localStorage에 저장
 */
 
 //전체 toDo 불러오는 api

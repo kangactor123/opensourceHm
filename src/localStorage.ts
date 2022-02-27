@@ -3,10 +3,7 @@ search : "SEARCH"
 toDo : "TODOS"
 */
 
-import { useRecoilState } from "recoil";
-import { getFromLocalStroage } from "./api/\btoDoApi";
-import { IToDo } from "./interface";
-import { IChoice, toDos } from "./store";
+import { IChoice, IToDo } from "./interface";
 
 /* SearchKeyword */
 const localSearch = localStorage.getItem("SEARCH");
@@ -30,16 +27,64 @@ export function getSearchKeyword() {
 
 /* TODO */
 /* atom도 같이 삭제해주자. */
-const localToDo: IToDo[] = JSON.parse(localStorage.getItem("TODOS") as string);
+
+/*
+updateFromLocalStorage :
+500상태 (Server 가 offline 일 경우) 일 때 localStorage에서 상태를 업데이트 하는 함수
+filter 함수를 이용해 해당하는 아이디를 걸러내고, 수정한 객체를 집어넣고 localStorage에 저장
+
+deleteOneFromToDos :
+개별 TODO 삭제 메서드
+
+deleteArrayFromToDos :
+500상태 (Server 가 offline 일 경우) 일 때 localStorage에서 삭제하려는 toDo를 삭제하는 함수
+filter 함수를 이용해 해당하는 아이디를 걸러내고 나머지 toDo는 다시 localStorage에 저장
+*/
+
+export function saveInLocalStroage(toDo: IToDo) {
+  let oldToDos: IToDo[] = [];
+
+  if (localStorage.getItem("TODOS") !== null) {
+    oldToDos = JSON.parse(localStorage.getItem("TODOS") as string);
+  }
+
+  localStorage.setItem("TODOS", JSON.stringify([...oldToDos, toDo]));
+}
+
+export function getFromLocalStroage(id?: number) {
+  const toDos: IToDo[] =
+    localStorage.getItem("TODOS") !== null
+      ? JSON.parse(localStorage.getItem("TODOS") as string)
+      : [];
+
+  //id가 존재할 경우 (선택 toDo 조회)
+  if (id !== undefined) {
+    for (let toDo of toDos) {
+      if (toDo.id === id) {
+        return [toDo];
+      }
+    }
+  }
+  return [...toDos];
+}
 
 export function updateFromLocalStorage(toDo: IToDo) {
-  const toDos = getFromLocalStroage();
-  const idx = toDos.findIndex((item) => item.id === toDo.id);
-  const newToDo = [...toDos.slice(0, idx), toDo, ...toDos.slice(idx + 1)];
+  const localToDo: IToDo[] = JSON.parse(
+    localStorage.getItem("TODOS") as string
+  );
+  const idx = localToDo.findIndex((item) => item.id === toDo.id);
+  const newToDo = [
+    ...localToDo.slice(0, idx),
+    toDo,
+    ...localToDo.slice(idx + 1),
+  ];
   localStorage.setItem("TODOS", JSON.stringify(newToDo));
 }
 
 export function deleteOneFromToDos(toDo: IToDo) {
+  const localToDo: IToDo[] = JSON.parse(
+    localStorage.getItem("TODOS") as string
+  );
   const idx = localToDo.findIndex((todo) => todo.id === toDo.id);
   const newList = [...localToDo.slice(0, idx), ...localToDo.slice(idx + 1)];
   localStorage.setItem("TODOS", JSON.stringify(newList));
@@ -47,7 +92,7 @@ export function deleteOneFromToDos(toDo: IToDo) {
 }
 
 export function deleteArrayFromToDos(toDos: IChoice[]) {
-  let newList: IToDo[] = localToDo;
+  let newList: IToDo[] = JSON.parse(localStorage.getItem("TODOS") as string);
 
   for (let i = 0; i < toDos.length; i++) {
     newList = newList.filter((toDo) => toDo.id !== toDos[i].id);

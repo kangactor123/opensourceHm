@@ -1,7 +1,6 @@
 import { atom } from "recoil";
-import { getFromLocalStroage } from "./api/\btoDoApi";
-import { IModal, IPage, IToDo } from "./interface";
-import { getSearchKeyword } from "./localStorage";
+import { IChoice, IModal, IPage, IToDo } from "./interface";
+import { getFromLocalStroage, getSearchKeyword } from "./localStorage";
 
 const localToDos = getFromLocalStroage();
 const searchKeyword = getSearchKeyword();
@@ -26,10 +25,6 @@ export const paging = atom<IPage>({
     nowPage: 1,
   },
 });
-
-export interface IChoice {
-  id: number;
-}
 
 /* 선택된 toDo의 아이디를 넣어주자. */
 export const choice = atom<IChoice[]>({

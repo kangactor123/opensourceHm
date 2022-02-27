@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { updateFromLocalStorage } from "../../localStorage";
@@ -54,6 +54,8 @@ function UpdateBoard() {
   const [toDoList, setToDoList] = useRecoilState(toDos);
   const [deadline, setDeadLine] = useState("");
   const [title, setTitle] = useState("");
+  const inputContent = useRef<HTMLTextAreaElement>(null);
+  const inputDate = useRef<HTMLInputElement>(null);
   const exitModal = () => {
     setModal((prev) => {
       return {
@@ -63,15 +65,36 @@ function UpdateBoard() {
     });
   };
   const updateToDo = () => {
-    /* update 처리 */
-    console.log("modal: ", modal.id);
+    if (deadline === "" || deadline === null) {
+      alert("날짜를 선택해주세요");
+      inputDate.current?.focus();
+      return;
+    }
+    if (
+      (new Date(deadline).getTime() - Date.now()) / 1000 / 60 / 60 / 24 <
+      -1
+    ) {
+      alert("이미 지난 날은 선택하실 수 없습니다.");
+      inputDate.current?.focus();
+      return;
+    }
+    if (title === "" || title === null) {
+      alert("내용을 입력해주세요");
+      inputContent.current?.focus();
+      return;
+    }
+    if (title.length < 10) {
+      alert("10글자 이상 입력해주세요");
+      inputContent.current?.focus();
+      return;
+    }
     const newToDo = {
       id: modal.id,
       title,
       deadline,
       done: false,
     };
-    updateFromLocalStorage(newToDo); //로컬에 업데이트
+    updateFromLocalStorage(newToDo);
     setToDoList(() => {
       return [...toDoList.filter((todo) => todo.id !== modal.id), newToDo];
     });
@@ -87,8 +110,13 @@ function UpdateBoard() {
   return (
     <Container style={{ top: 100 }}>
       <Form>
-        <UpdateDate type="date" onChange={changeDate} value={deadline} />
-        <UpdateCotent value={title} onChange={changeTitle} />
+        <UpdateDate
+          ref={inputDate}
+          type="date"
+          onChange={changeDate}
+          value={deadline}
+        />
+        <UpdateCotent ref={inputContent} value={title} onChange={changeTitle} />
       </Form>
       <Button onClick={updateToDo}>수정하기</Button>
       <Button onClick={exitModal}>나가기</Button>

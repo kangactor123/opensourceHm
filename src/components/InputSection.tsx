@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { saveInLocalStroage } from "../api/\btoDoApi";
-import { deleteArrayFromToDos } from "../localStorage";
+import { deleteArrayFromToDos, saveInLocalStroage } from "../localStorage";
 import { choice, toDos } from "../store";
 import Button from "./common/Button";
 
@@ -64,6 +63,8 @@ function InputSection() {
   const [content, setContent] = useState("");
   const [localTodos, setLocalToDos] = useRecoilState(toDos);
   const [choiceArray, setChoiceArray] = useRecoilState(choice);
+  const inputContent = useRef<HTMLTextAreaElement>(null);
+  const inputDate = useRef<HTMLInputElement>(null);
   const changeDate = (event: React.FormEvent<HTMLInputElement>) => {
     setDate(event.currentTarget.value);
   };
@@ -71,6 +72,26 @@ function InputSection() {
     setContent(event.currentTarget.value);
   };
   const makeNewToDo = () => {
+    if (date === "" || date === null) {
+      alert("날짜를 선택해주세요");
+      inputDate.current?.focus();
+      return;
+    }
+    if ((new Date(date).getTime() - Date.now()) / 1000 / 60 / 60 / 24 < -1) {
+      alert("이미 지난 날은 선택하실 수 없습니다.");
+      inputDate.current?.focus();
+      return;
+    }
+    if (content === "" || content === null) {
+      alert("내용을 입력해주세요");
+      inputContent.current?.focus();
+      return;
+    }
+    if (content.length < 10) {
+      alert("10글자 이상 입력해주세요");
+      inputContent.current?.focus();
+      return;
+    }
     const newToDo = {
       id: Date.now(),
       title: content,
@@ -98,11 +119,17 @@ function InputSection() {
   return (
     <Wrapper>
       <InputBox>
-        <InputDate type="date" value={date} onChange={changeDate} />
+        <InputDate
+          ref={inputDate}
+          type="date"
+          value={date}
+          onChange={changeDate}
+        />
         <InputContents
           placeholder="할 것을 입력해주시오..."
           value={content}
           onChange={changeContent}
+          ref={inputContent}
         />
       </InputBox>
       <ButtonBox>

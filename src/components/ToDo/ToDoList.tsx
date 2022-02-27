@@ -2,6 +2,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
 import { paging, toDos } from "../../store";
+import { sortList } from "../../util/sort";
 import ToDoCard from "./ToDoCard";
 
 const Wrapper = styled.div`
@@ -37,11 +38,13 @@ const NoToDo = styled.div`
 
 function ToDoList() {
   const localToDos = useRecoilValue<IToDo[]>(toDos);
+  const sorting = sortList(localToDos);
   const page = useRecoilValue(paging);
-  const list = localToDos.slice(
+  const list = sorting.slice(
     (page.nowPage - 1) * page.pageValue,
     page.nowPage * page.pageValue
   );
+
   return (
     <Wrapper>
       {list.length == 0 ? (

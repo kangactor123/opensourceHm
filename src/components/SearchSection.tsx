@@ -62,12 +62,18 @@ const SearchItem = styled.span`
 /* 최근 검색어는 localStorage에서 불러서 저장해놔야함 store에 */
 /* 검색어는 태그 형식으로 만들자 걍 ... */
 function SearchSection() {
+  const searchRef = useRef<HTMLInputElement>(null);
   const [list, setSearchList] = useRecoilState(searchList);
   const [keyword, setKeyword] = useState("");
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     setKeyword(event.currentTarget.value);
   };
   const clickSearch = () => {
+    if (keyword === "") {
+      alert("한 글자 이상 입력해주세요");
+      searchRef.current?.focus();
+      return;
+    }
     setSearchList((prev) => {
       return [...prev, keyword];
     });
@@ -89,6 +95,7 @@ function SearchSection() {
       <Wrapper>
         <InputBox>
           <SearchBar
+            ref={searchRef}
             value={keyword}
             onChange={onChange}
             placeholder="검색어를 입력하시오."

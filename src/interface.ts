@@ -14,3 +14,7 @@ export interface IPage {
   pageValue: number;
   nowPage: number;
 }
+
+export interface IChoice {
+  id: number;
+}
