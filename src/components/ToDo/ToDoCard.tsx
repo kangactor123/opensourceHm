@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { IModal } from "../../interface";
-import { modalActive } from "../../store";
+import { deleteOneFromToDos, updateFromLocalStorage } from "../../localStorage";
+import { choice, modalActive, toDos } from "../../store";
 import Button from "../common/Button";
 
 const CardWrapper = styled.div<{ dead: boolean }>`
@@ -12,7 +13,8 @@ const CardWrapper = styled.div<{ dead: boolean }>`
   height: auto;
   padding: 10px;
   gap: 10px;
-  border: 1px solid ${(props) => (props.dead ? "red" : "black")};
+  border: ${(props) => (props.dead ? "2px" : "1px")} solid
+    ${(props) => (props.dead ? "red" : "black")};
   margin: 10px;
 `;
 
@@ -41,7 +43,7 @@ const BtnBox = styled.div`
 `;
 
 interface ToDoProps {
-  id: number;
+  id?: number;
   text: string;
   deadline: string;
   done: boolean;
@@ -50,10 +52,12 @@ interface ToDoProps {
 /* 기한 임박 시 테두리 빨간색으로 표기해야함 */
 /* 현재 deadline이 string으로 넘어옴 */
 /* 수정하기 누르면 Modal창 나와서 수정하자 */
-function ToDoCard({ id, text, deadline, done }: ToDoProps) {
+function ToDoCard({ id = 0, text, deadline, done }: ToDoProps) {
   const [choose, setChoose] = useState(false);
+  const [doing, setDoing] = useState(done);
   const setModalActive = useSetRecoilState<IModal>(modalActive);
-  const modal = useRecoilValue(modalActive);
+  const [choiceArray, setChoiceArray] = useRecoilState(choice);
+  const [localToDos, setLocalTodos] = useRecoilState(toDos);
   const modalClick = () => {
     setModalActive((prev) => {
       return {
@@ -62,18 +66,65 @@ function ToDoCard({ id, text, deadline, done }: ToDoProps) {
       };
     });
   };
+  const coiceClick = () => {
+    if (choiceArray.findIndex((todo) => todo.id === id) != -1) {
+      setChoose((prev) => !prev);
+      setChoiceArray((prev) => {
+        return [...prev.filter((todo) => todo.id !== id)];
+      });
+    } else {
+      setChoose((prev) => !prev);
+      setChoiceArray((prev) => {
+        return [...prev, { id }];
+      });
+    }
+  };
+  const deleteClick = () => {
+    if (window.confirm("정말 삭제하시겠나요?")) {
+      const newList = deleteOneFromToDos({ id, title: text, done, deadline });
 
+      setLocalTodos(newList);
+    }
+  };
+  const doneClick = () => {
+    const newToDo = {
+      id,
+      title: text,
+      deadline,
+      done: !done,
+    };
+    const idx = localToDos.findIndex((todo) => todo.id === id);
+    setLocalTodos((prev) => {
+      return [...prev.slice(0, idx), newToDo, ...prev.slice(idx + 1)];
+    });
+    setDoing((prev) => !prev);
+    updateFromLocalStorage(newToDo);
+  };
   return (
-    <CardWrapper dead={false}>
+    <CardWrapper
+      dead={
+        (new Date(deadline).getTime() - Date.now()) / 1000 / 60 / 60 / 24 < 3
+          ? true
+          : false
+      }
+    >
       <ContentBox>
         <DeadLine>{deadline}</DeadLine>
         <Content>{text}</Content>
       </ContentBox>
       <BtnBox>
-        <Button text="선택" bgColor={choose ? "red" : "lightgray"} />
-        <Button text={done ? "아직이다" : "끝장냈다"} hoverColor="aqua" />
+        <Button
+          text="선택"
+          bgColor={choose ? "red" : "lightgray"}
+          clickFcn={coiceClick}
+        />
+        <Button
+          clickFcn={doneClick}
+          text={doing ? "아직이다" : "끝장냈다"}
+          bgColor={doing ? "lightblue" : "lightgray  "}
+        />
         <Button text="수정하자" clickFcn={modalClick} />
-        <Button text="개별삭제" hoverColor="blue" />
+        <Button text="개별삭제" hoverColor="blue" clickFcn={deleteClick} />
       </BtnBox>
     </CardWrapper>
   );

@@ -1,4 +1,5 @@
-import { animate, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import Header from "./components/common/Header";
@@ -9,6 +10,7 @@ import PagingSection from "./components/PagingSection";
 import SearchSection from "./components/SearchSection";
 import ToDoList from "./components/toDo/ToDoList";
 import { modalActive } from "./store";
+import { makeNoticeBoard } from "./util";
 
 const Container = styled.div`
   max-width: 660px;
@@ -20,6 +22,9 @@ const Container = styled.div`
 /* todo 수정은 modal에서 하자 */
 function App() {
   const [modal, setModal] = useRecoilState(modalActive);
+  useEffect(() => {
+    makeNoticeBoard();
+  }, []);
   return (
     <>
       <Container>

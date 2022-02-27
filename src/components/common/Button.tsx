@@ -14,8 +14,9 @@ export const Btn = styled.button<{ hoverColor?: string; bgColor?: string }>`
   border: 0;
   border-radius: 15px;
   background-color: ${(props) => props.bgColor};
+  color: ${(props) => (props.bgColor === "red" ? "white" : "black")};
   letter-spacing: 1px;
-  font-size: 0.7em;
+  font-size: 0.6em;
   cursor: pointer;
   &:hover {
     color: white;

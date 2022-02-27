@@ -1,17 +1,13 @@
-import { useViewportScroll } from "framer-motion";
 import React, { useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import {
-  getFromLocalStroage,
-  updateFromLocalStorage,
-} from "../../api/\btoDoApi";
+import { updateFromLocalStorage } from "../../localStorage";
 import { modalActive, toDos } from "../../store";
 import { Btn } from "./Button";
 
 const Container = styled.div`
   position: absolute;
-  width: 30vw;
+  max-width: 400px;
   height: 50vh;
   background-color: ${(props) => props.theme.light.background};
   left: 0;

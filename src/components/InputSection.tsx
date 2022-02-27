@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { saveInLocalStroage } from "../api/\btoDoApi";
-import { toDos } from "../store";
+import { deleteArrayFromToDos } from "../localStorage";
+import { choice, toDos } from "../store";
 import Button from "./common/Button";
 
 const Wrapper = styled.div`
@@ -62,25 +63,37 @@ function InputSection() {
   const [date, setDate] = useState("");
   const [content, setContent] = useState("");
   const [localTodos, setLocalToDos] = useRecoilState(toDos);
+  const [choiceArray, setChoiceArray] = useRecoilState(choice);
   const changeDate = (event: React.FormEvent<HTMLInputElement>) => {
     setDate(event.currentTarget.value);
   };
   const changeContent = (event: React.FormEvent<HTMLTextAreaElement>) => {
     setContent(event.currentTarget.value);
   };
-  const createToDo = () => {
+  const makeNewToDo = () => {
     const newToDo = {
       id: Date.now(),
       title: content,
       deadline: date,
       done: false,
     };
+    saveInLocalStroage(newToDo);
     setLocalToDos(() => {
       return [...localTodos, newToDo];
     });
-    saveInLocalStroage(newToDo);
     setDate("");
     setContent("");
+  };
+  const mulDeleteClick = () => {
+    if (window.confirm("선택한 TODO를 삭제하시겠나요?")) {
+      if (choiceArray.length === 0) {
+        alert("선택한 ToDo가 없습니다.");
+        return;
+      } else {
+        const newList = deleteArrayFromToDos(choiceArray);
+        setLocalToDos(newList);
+      }
+    }
   };
   return (
     <Wrapper>
@@ -96,9 +109,13 @@ function InputSection() {
         <Button
           text="생성하기"
           hoverColor="rgba(0,0,255,0.5)"
-          clickFcn={createToDo}
+          clickFcn={makeNewToDo}
         />
-        <Button text="삭제하기" hoverColor="rgba(255,0,0,0.5)" />
+        <Button
+          clickFcn={mulDeleteClick}
+          text="선택삭제"
+          hoverColor="rgba(255,0,0,0.5)"
+        />
       </ButtonBox>
     </Wrapper>
   );

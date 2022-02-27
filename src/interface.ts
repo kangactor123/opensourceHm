@@ -5,14 +5,12 @@ export interface IToDo {
   deadline: string;
 }
 
-export interface ItoDoType {
-  id: number;
-  title: string;
-  deadline: string;
-  done: boolean;
-}
-
 export interface IModal {
   id: number;
   active: boolean;
+}
+
+export interface IPage {
+  pageValue: number;
+  nowPage: number;
 }

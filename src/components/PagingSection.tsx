@@ -1,6 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getFromLocalStroage } from "../api/\btoDoApi";
 import { paging, toDos } from "../store";
 
 const Wrapper = styled.div`

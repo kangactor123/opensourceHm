@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ItoDoType } from "../../interface";
+import { IToDo } from "../../interface";
 import { paging, toDos } from "../../store";
 import ToDoCard from "./ToDoCard";
 
@@ -29,11 +29,11 @@ const Wrapper = styled.div`
 start = nowPage - 1 * value 
 end = nowPage * value
 
-
 */
 
 function ToDoList() {
-  const localToDos = useRecoilValue<ItoDoType[]>(toDos);
+  const localToDos = useRecoilValue<IToDo[]>(toDos);
+  console.log("list", localToDos);
   const page = useRecoilValue(paging);
   const list = localToDos.slice(
     (page.nowPage - 1) * page.pageValue,
@@ -41,7 +41,7 @@ function ToDoList() {
   );
   return (
     <Wrapper>
-      {list.map((todo: ItoDoType) => (
+      {list.map((todo: IToDo) => (
         <ToDoCard
           key={todo.id}
           id={todo.id}
