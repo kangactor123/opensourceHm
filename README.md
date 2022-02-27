@@ -11,6 +11,7 @@
 
 - Language : Typescript
 - CRA (Create React App)
+  `npx create-react-app my-app --template typescript`
 - Babel, Webpack
 - Styled-Components
   ` npm i styled-components`
@@ -41,6 +42,7 @@
 ### 배포
 
 - Github page
+- https://kangactor123.github.io/opensourceHm
 
 ### 요구사항
 
