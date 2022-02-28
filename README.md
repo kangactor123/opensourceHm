@@ -1,5 +1,8 @@
 # ToDo List
 
+<img width="1440" alt="스크린샷 2022-02-28 오후 2 34 00" src="https://user-images.githubusercontent.com/82820237/155929648-3aa8b0d7-efb7-42c2-984d-e7772331c1ee.png">
+- https://kangactor123.github.io/opensourceHm
+
 ## Contributor
 
 - @kangactor123
@@ -41,8 +44,7 @@ $ npm run deploy
 
 ## Deploy
 
-- Github page
-- https://kangactor123.github.io/opensourceHm
+- <a href="https://kangactor123.github.io/opensourceHm">Github page</a>
 
 ## Requirement
 
