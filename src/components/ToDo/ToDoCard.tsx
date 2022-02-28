@@ -123,7 +123,7 @@ function ToDoCard({ id = 0, text, deadline, done }: ToDoProps) {
           text={doing ? "아직이다" : "끝장냈다"}
           bgColor={doing ? "lightblue" : "lightgray  "}
         />
-        <Button text="수정하자" clickFcn={modalClick} />
+        <Button text="수정하자" hoverColor="brown" clickFcn={modalClick} />
         <Button text="개별삭제" hoverColor="blue" clickFcn={deleteClick} />
       </BtnBox>
     </CardWrapper>

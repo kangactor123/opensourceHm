@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { deleteArrayFromToDos, saveInLocalStroage } from "../localStorage";
-import { choice, toDos } from "../store";
+import { choice, searchKeyword, toDos } from "../store";
 import Button from "./common/Button";
 
 const Wrapper = styled.div`
@@ -63,6 +63,7 @@ function InputSection() {
   const [content, setContent] = useState("");
   const [localTodos, setLocalToDos] = useRecoilState(toDos);
   const [choiceArray, setChoiceArray] = useRecoilState(choice);
+  const setKeyword = useSetRecoilState(searchKeyword);
   const inputContent = useRef<HTMLTextAreaElement>(null);
   const inputDate = useRef<HTMLInputElement>(null);
   const changeDate = (event: React.FormEvent<HTMLInputElement>) => {
@@ -102,6 +103,7 @@ function InputSection() {
     setLocalToDos(() => {
       return [...localTodos, newToDo];
     });
+    setKeyword("");
     setDate("");
     setContent("");
   };

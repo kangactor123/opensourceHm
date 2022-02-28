@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { paging, toDos } from "../store";
+import { IToDo } from "../interface";
+import { paging } from "../store";
+import { makeTotalPage } from "../util/makeTotalPage";
 
 const Wrapper = styled.div`
   width: 60%;
@@ -28,21 +28,14 @@ const Page = styled.li`
   }
 `;
 
-function PagingSection() {
+interface PagingProps {
+  propsList: IToDo[];
+}
+
+function PagingSection({ propsList }: PagingProps) {
   const [page, setPage] = useRecoilState(paging);
-  const toDoList = useRecoilValue(toDos);
-  const pageNumbers = [];
+  const pageNumbers = makeTotalPage(propsList.length, page.pageValue);
 
-  const navigate = useNavigate();
-  useEffect(() => {
-    setTimeout(() => {
-      navigate("/opensourceHm");
-    }, 3000);
-  }, [toDoList]);
-
-  for (let i = 1; i <= Math.ceil(toDoList.length / page.pageValue); i++) {
-    pageNumbers.push(i);
-  }
   const clickPage = (page: number) => {
     setPage((prev) => {
       return {

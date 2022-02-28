@@ -3,12 +3,12 @@ import { IChoice, IModal, IPage, IToDo } from "./interface";
 import { getFromLocalStroage, getSearchKeyword } from "./localStorage";
 
 const localToDos = getFromLocalStroage();
-const searchKeyword = getSearchKeyword();
+const searchKeywordList = getSearchKeyword();
 
 export const modalActive = atom<IModal>({
   key: "modalActive",
   default: {
-    id: 123,
+    id: Date.now(),
     active: false,
   },
 });
@@ -26,7 +26,6 @@ export const paging = atom<IPage>({
   },
 });
 
-/* 선택된 toDo의 아이디를 넣어주자. */
 export const choice = atom<IChoice[]>({
   key: "choice",
   default: [],
@@ -34,5 +33,10 @@ export const choice = atom<IChoice[]>({
 
 export const searchList = atom<string[]>({
   key: "searchList",
-  default: searchKeyword,
+  default: searchKeywordList,
+});
+
+export const searchKeyword = atom<string>({
+  key: "searchToDos",
+  default: "",
 });

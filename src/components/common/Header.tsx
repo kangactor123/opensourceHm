@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { paging } from "../../store";
+import { paging, searchKeyword } from "../../store";
 
 export const Wrapper = styled.header`
   max-width: 660px;
@@ -49,7 +49,7 @@ const PageSelecter = styled.select`
 
 function Header() {
   const setPage = useSetRecoilState(paging);
-  const navigate = useNavigate();
+  const setKeyword = useSetRecoilState(searchKeyword);
   const selectPaging = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPage((prev) => {
       return {
@@ -59,7 +59,7 @@ function Header() {
     });
   };
   const goHome = () => {
-    navigate("/opensourceHm");
+    setKeyword("");
   };
   return (
     <Wrapper>

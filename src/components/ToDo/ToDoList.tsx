@@ -13,32 +13,19 @@ const Wrapper = styled.div`
   justify-content: center;
   padding: 10px;
 `;
-/*
-5 개 노출
-1 - (0,5)
-2 - (5,10)
-3 - (10,15)
-10 개 노출
-1 - (0, 10)
-2 - (10, 20)
-3 - (20, 30)
-15 개 노출
-1 - (0, 15)
-2 - (15, 30)
-3 - (30, 45)
 
-start = nowPage - 1 * value 
-end = nowPage * value
-
-*/
 const NoToDo = styled.div`
   font-size: 1.3em;
   font-family: "Times New Roman", Times, serif;
 `;
 
-function ToDoList() {
-  const localToDos = useRecoilValue<IToDo[]>(toDos);
-  const sorting = sortList(localToDos);
+interface ListProps {
+  propList: IToDo[];
+}
+
+function ToDoList({ propList }: ListProps) {
+  //const localToDos = useRecoilValue<IToDo[]>(toDos);
+  const sorting = sortList(propList);
   const page = useRecoilValue(paging);
   const list = sorting.slice(
     (page.nowPage - 1) * page.pageValue,
@@ -48,7 +35,7 @@ function ToDoList() {
   return (
     <Wrapper>
       {list.length == 0 ? (
-        <NoToDo>생성하신 ToDo가 없습니다.</NoToDo>
+        <NoToDo>박스에 담긴 ToDo가 없습니다.</NoToDo>
       ) : (
         list.map((todo: IToDo) => (
           <ToDoCard

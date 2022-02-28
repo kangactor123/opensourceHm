@@ -2,15 +2,16 @@ import { AnimatePresence } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../components/common/Header";
-import { Overlay } from "../components/common/Overlay";
-import UpdateBoard from "../components/common/UpdateBoard";
+import Overlay from "../components/common/Overlay";
 import InputSection from "../components/InputSection";
 import PagingSection from "../components/PagingSection";
-import SearchSection from "../components/SearchSection";
+import SearchSection from "../components/search/SearchSection";
 import ToDoList from "../components/toDo/ToDoList";
-import { modalActive } from "../store";
+import { IToDo } from "../interface";
+import { modalActive, searchKeyword, toDos } from "../store";
+import { makeKeywordList } from "../util/makeKeywordList";
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 660px;
   height: auto;
   margin: 0 auto;
@@ -19,26 +20,21 @@ const Container = styled.div`
 
 function Home() {
   const modal = useRecoilValue(modalActive);
-
+  const localToDos = useRecoilValue<IToDo[]>(toDos);
+  const keyword = useRecoilValue(searchKeyword);
+  const list =
+    keyword.length === 0 ? localToDos : makeKeywordList(localToDos, keyword);
   return (
     <>
       <Container>
         <Header />
         <SearchSection />
         <InputSection />
-        <ToDoList />
-        <PagingSection />
+        <ToDoList propList={list} />
+        <PagingSection propsList={list} />
       </Container>
       <AnimatePresence>
-        {modal.active == false ? null : (
-          <Overlay
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <UpdateBoard />
-          </Overlay>
-        )}
+        {modal.active == false ? null : <Overlay />}
       </AnimatePresence>
     </>
   );
