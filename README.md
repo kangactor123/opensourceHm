@@ -14,30 +14,41 @@
 ## Tech Requirement (Tech Stack)
 
 - Language : Typescript
-- CRA (Create React App)<br/>
-  `npx create-react-app my-app --template typescript`
+- CRA (Create React App)
+  ```
+  npx create-react-app my-app --template typescript
+  ```
 - Babel, Webpack
-- Styled-Components<br/>
-  ` npm i styled-components`<br/>
-  ` npm i --save-dev @types/styled-components`
-- React-hook-form<br/>
-  `npm i react-hook-form`
-- Recoil<br/>
-  `npm i recoil`
-- Framer-motion<br/>
-  `npm i framer-motion`
-- gh-pages (배포)<br/>
-  `npm i gh-pages`
-- React-router-dom<br/>
-  `npm i react-router-dom`
+- Styled-Components
+  ```
+  npm i styled-components
+  npm i --save-dev @types/styled-components
+  ```
+- React-hook-form
+  ```
+  npm i react-hook-form
+  ```
+- Recoil
+  ```
+  npm i recoil
+  ```
+- Framer-motion
+  ```
+  npm i framer-motion
+  ```
+- gh-pages (배포)
+  ```
+  npm i gh-pages
+  ```
+- React-router-dom
+  ```
+  npm i react-router-dom
+  ```
 
 ## Script
 
 ```
 $ npm start
-```
-
-```
 $ npm run deploy
 ```
 
