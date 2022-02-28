@@ -1,12 +1,14 @@
-### 기한
+# ToDo List
+
+## Contributor
+
+- @kangactor123
+
+## Dev period
 
 - 2022/02/24 ~ 2022/03/02
 
-### 작성자
-
-- kangactor123(@owner)
-
-### 개발환경
+## Tech Requirement (Tech Stack)
 
 - Language : Typescript
 - CRA (Create React App)<br/>
@@ -26,12 +28,23 @@
 - React-router-dom<br/>
   `npm i react-router-dom`
 
-### 배포
+## Script
+
+```
+$ npm start
+```
+
+```
+$ npm run build
+$ npm run deploy
+```
+
+## Deploy
 
 - Github page
 - https://kangactor123.github.io/opensourceHm
 
-### 요구사항
+## Requirement
 
 - 사용자는 페이지 상단에서 toDo를 추가할 수 있다. toDo는 내용과 날짜가 들어가야한다.
 - 사용자는 버튼을 통해서 toDo를 수정할 수 있다.
@@ -44,7 +57,7 @@
 - 리스트 내에서 검색이 가능하게 구현한다. (상단에 서치바를 구현한다.)
   - 검색어는 유지되도록 구현한다.
 
-### 상세설명
+## Description
 
 - api는 src/api/toDoApi.ts 에 작성된 함수를 활용한다
 - 해당 TODO app 은 api가 열려있지 않으므로 localStorage.ts 에 정의된 함수를 활용한다.
