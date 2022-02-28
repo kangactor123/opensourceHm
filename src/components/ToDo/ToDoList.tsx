@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
-import { paging, toDos } from "../../store";
+import { paging } from "../../store";
 import { sortList } from "../../util/sort";
 import ToDoCard from "./ToDoCard";
 
@@ -24,7 +24,6 @@ interface ListProps {
 }
 
 function ToDoList({ propList }: ListProps) {
-  //const localToDos = useRecoilValue<IToDo[]>(toDos);
   const sorting = sortList(propList);
   const page = useRecoilValue(paging);
   const list = sorting.slice(

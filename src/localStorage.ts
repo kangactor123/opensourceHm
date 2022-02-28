@@ -25,16 +25,20 @@ export function getSearchKeyword() {
   }
 }
 
-/* TODO */
-/* atom도 같이 삭제해주자. */
-
 /*
+TODO
+
+saveInLocalStroage : localStorage에 저장
+
+getFromLocalStroage : 
+매개변수 id가 존재할 경우 해당 toDo만 반환, 
+아닐 경우 localStorage에서 조회한 전체 리스트 반환
+
 updateFromLocalStorage :
 500상태 (Server 가 offline 일 경우) 일 때 localStorage에서 상태를 업데이트 하는 함수
 filter 함수를 이용해 해당하는 아이디를 걸러내고, 수정한 객체를 집어넣고 localStorage에 저장
 
-deleteOneFromToDos :
-개별 TODO 삭제 메서드
+deleteOneFromToDos : 개별 TODO 삭제 메서드
 
 deleteArrayFromToDos :
 500상태 (Server 가 offline 일 경우) 일 때 localStorage에서 삭제하려는 toDo를 삭제하는 함수

@@ -49,9 +49,6 @@ interface ToDoProps {
   done: boolean;
 }
 
-/* 기한 임박 시 테두리 빨간색으로 표기해야함 */
-/* 현재 deadline이 string으로 넘어옴 */
-/* 수정하기 누르면 Modal창 나와서 수정하자 */
 function ToDoCard({ id = 0, text, deadline, done }: ToDoProps) {
   const [choose, setChoose] = useState(false);
   const [doing, setDoing] = useState(done);

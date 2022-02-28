@@ -29,9 +29,6 @@ const BtnBox = styled(ButtonBox)`
   justify-content: center;
 `;
 
-/* 검색 input에 focus가 들어왔을 때 검색 목록이 내려올 수 있도록, blur -> 검색어 목록 사라져야함 */
-/* 최근 검색어는 localStorage에서 불러서 저장해놔야함 store에 */
-/* 검색어는 태그 형식으로 만들자 걍 ... */
 function SearchSection() {
   const searchRef = useRef<HTMLInputElement>(null);
   const setSearchList = useSetRecoilState(searchList);

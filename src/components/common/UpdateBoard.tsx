@@ -48,7 +48,6 @@ const Button = styled(Btn)`
   margin: 5px;
 `;
 
-/* 수정하기 클릭했을 때 넘어오는 정보 api 이용해서 toDo 선택해오고 뿌려주자 */
 function UpdateBoard() {
   const [modal, setModal] = useRecoilState(modalActive);
   const [toDoList, setToDoList] = useRecoilState(toDos);

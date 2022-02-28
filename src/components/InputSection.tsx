@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { deleteArrayFromToDos, saveInLocalStroage } from "../localStorage";
 import { choice, searchKeyword, toDos } from "../store";
@@ -62,7 +62,7 @@ function InputSection() {
   const [date, setDate] = useState("");
   const [content, setContent] = useState("");
   const [localTodos, setLocalToDos] = useRecoilState(toDos);
-  const [choiceArray, setChoiceArray] = useRecoilState(choice);
+  const choiceArray = useRecoilValue(choice);
   const setKeyword = useSetRecoilState(searchKeyword);
   const inputContent = useRef<HTMLTextAreaElement>(null);
   const inputDate = useRef<HTMLInputElement>(null);
