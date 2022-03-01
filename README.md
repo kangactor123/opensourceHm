@@ -9,7 +9,7 @@
 
 ## Dev period
 
-- 2022/02/24 ~ 2022/03/02
+- 2022/02/24 ~ 2022/03/01
 
 ## Tech Requirement (Tech Stack)
 

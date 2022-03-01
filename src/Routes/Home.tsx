@@ -13,7 +13,7 @@ import { makeKeywordList } from "../util/makeKeywordList";
 
 export const Container = styled.div`
   max-width: 660px;
-  height: auto;
+  height: 100vh;
   margin: 0 auto;
   background-color: #f2eeee;
 `;
