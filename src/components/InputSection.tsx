@@ -136,6 +136,7 @@ function InputSection() {
       </InputBox>
       <ButtonBox>
         <Button
+          type="submit"
           text="생성하기"
           hoverColor="rgba(0,0,255,0.5)"
           clickFcn={makeNewToDo}

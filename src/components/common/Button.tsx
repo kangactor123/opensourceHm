@@ -5,6 +5,7 @@ interface ButtonProps {
   bgColor?: string;
   text: string;
   clickFcn?: () => void;
+  type?: string;
 }
 
 export const Btn = styled.button<{ hoverColor?: string; bgColor?: string }>`
@@ -29,9 +30,15 @@ const Button = ({
   text,
   bgColor = "lightgray",
   clickFcn,
+  type = "button",
 }: ButtonProps) => {
   return (
-    <Btn hoverColor={hoverColor} bgColor={bgColor} onClick={clickFcn}>
+    <Btn
+      type={type as any}
+      hoverColor={hoverColor}
+      bgColor={bgColor}
+      onClick={clickFcn}
+    >
       {text}
     </Btn>
   );

@@ -50,11 +50,15 @@ function SearchSection() {
     saveSearchKeyword(keyword);
     setKeyword("");
   };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    clickSearch();
+  };
   return (
     <>
       <ListBox />
       <Wrapper>
-        <InputBox>
+        <InputBox onSubmit={handleSubmit}>
           <SearchBar
             ref={searchRef}
             value={keyword}
@@ -63,7 +67,7 @@ function SearchSection() {
           />
         </InputBox>
         <BtnBox>
-          <Button clickFcn={clickSearch} text="검색하기" hoverColor="gray" />
+          <Button type="submit" text="검색하기" hoverColor="gray" />
         </BtnBox>
       </Wrapper>
     </>

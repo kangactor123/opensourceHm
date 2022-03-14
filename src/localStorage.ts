@@ -6,9 +6,8 @@ toDo : "TODOS"
 import { IChoice, IToDo } from "./interface";
 
 /* SearchKeyword */
-const localSearch = localStorage.getItem("SEARCH");
-
 export function saveSearchKeyword(keyword: string) {
+  const localSearch = localStorage.getItem("SEARCH");
   if (localSearch === null) {
     localStorage.setItem("SEARCH", JSON.stringify([keyword]));
   } else {
@@ -18,6 +17,7 @@ export function saveSearchKeyword(keyword: string) {
 }
 
 export function getSearchKeyword() {
+  const localSearch = localStorage.getItem("SEARCH");
   if (localSearch === null) {
     return [];
   } else {
