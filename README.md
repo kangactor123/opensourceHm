@@ -93,3 +93,9 @@ $ npm run deploy
 ## Update
 
 - 3/14 검색 Enter 입력 시 검색되도록 수정, 검색 시 localStorage 제대로 저장 작동 안되던 버그 수정
+
+## Refactoring (3/17 ~ )
+
+- 컴포넌트 설계 리팩토링
+- Recoil 기반 상태관리 라이브러리를 Redux 로 교체
+- 데이터 플로우 설계 다시하기
