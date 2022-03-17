@@ -97,5 +97,4 @@ $ npm run deploy
 ## Refactoring (3/17 ~ )
 
 - 컴포넌트 설계 리팩토링
-- Recoil 기반 상태관리 라이브러리를 Redux 로 교체
 - 데이터 플로우 설계 다시하기
