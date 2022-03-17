@@ -12,10 +12,8 @@ import { modalActive, searchKeyword, toDos } from "../store";
 import { makeKeywordList } from "../util/makeKeywordList";
 
 export const Container = styled.div`
-  max-width: 660px;
   height: 100vh;
   margin: 0 auto;
-  background-color: #f2eeee;
 `;
 
 function Home() {
@@ -34,7 +32,7 @@ function Home() {
         <PagingSection propsList={list} />
       </Container>
       <AnimatePresence>
-        {modal.active == false ? null : <Overlay />}
+        {modal.active === false ? null : <Overlay />}
       </AnimatePresence>
     </>
   );

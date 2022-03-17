@@ -49,14 +49,18 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  html {
+    font-size:12px;
+  }
   body {
+    width:1440px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
     line-height: 1.2;
     color: ${(props) => props.theme.light.font};
-    background-color: ${(props) => props.theme.light.background};
     user-select: none;
     overflow-x: hidden;
+    background-color: #BFD7ED;
   }
   a {
     text-decoration: none;
