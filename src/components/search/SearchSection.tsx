@@ -1,74 +1,93 @@
 import React, { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { saveSearchKeyword } from "../../localStorage";
 import { searchKeyword, searchList } from "../../store";
 import Button from "../common/Button";
 import { ButtonBox, InputBox } from "../InputSection";
+import DataList from "./DataList";
 import ListBox from "./ListBox";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Wrapper = styled.div`
-  max-width: 660px;
   height: 10vh;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 10px 10px 0 10px;
+`;
+
+// const SearchBox = styled(InputBox)`
+//   position: relative;
+//   width: 500px;
+// `;
+const SearchBox = styled.form`
+  position: relative;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Icon = styled(SearchIcon)`
+  position: absolute;
+  right: 30px;
 `;
 
 const SearchBar = styled.input`
   width: 100%;
-  height: 30px;
-  background-color: inherit;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 5px;
+  height: 35px;
+  background-color: #ffffff;
+  border: 0;
   padding-left: 10px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  &:focus {
+    outline: none;
+  }
 `;
 
-const BtnBox = styled(ButtonBox)`
-  justify-content: center;
-`;
+interface IKeyword {
+  keyword: string;
+}
 
 function SearchSection() {
-  const searchRef = useRef<HTMLInputElement>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IKeyword>();
   const setSearchList = useSetRecoilState(searchList);
   const setSearchKeyword = useSetRecoilState(searchKeyword);
-  const [keyword, setKeyword] = useState("");
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setKeyword(event.currentTarget.value);
-  };
-  const clickSearch = () => {
-    if (keyword === "") {
-      alert("한 글자 이상 입력해주세요");
-      searchRef.current?.focus();
-      return;
-    }
+
+  const onValid = (data: IKeyword) => {
     setSearchList((prev) => {
-      return [...prev, keyword];
+      return [...prev, data.keyword];
     });
-    setSearchKeyword(keyword);
-    saveSearchKeyword(keyword);
-    setKeyword("");
-  };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    clickSearch();
+    setSearchKeyword(data.keyword);
+    saveSearchKeyword(data.keyword);
   };
   return (
     <>
-      <ListBox />
       <Wrapper>
-        <InputBox onSubmit={handleSubmit}>
+        <SearchBox onSubmit={handleSubmit(onValid)}>
           <SearchBar
-            ref={searchRef}
-            value={keyword}
-            onChange={onChange}
-            placeholder="검색어를 입력하시오."
+            placeholder="검색어를 입력하세요"
+            list="searchList"
+            {...register("keyword", {
+              required: "검색어를 입력해주세요.",
+              minLength: {
+                value: 1,
+                message: "한 글자 이상 입력해주세요.",
+              },
+            })}
           />
-        </InputBox>
-        <BtnBox>
-          <Button type="submit" text="검색하기" hoverColor="gray" />
-        </BtnBox>
+          <Icon />
+        </SearchBox>
+        <div>{errors?.keyword?.message}</div>
+        <DataList />
       </Wrapper>
     </>
   );
