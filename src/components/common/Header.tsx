@@ -45,7 +45,7 @@ const LeftSection = styled.div`
   width: 300px;
   flex-direction: row;
   align-items: center;
-  gap: 10%;
+  gap: 5%;
 `;
 
 const PageSelecter = styled.select`
@@ -73,7 +73,7 @@ function Header() {
     <Wrapper>
       <LeftSection>
         <MenuIcon fontSize="large" />
-        <Logo>Thoogle Memo</Logo>
+        <Logo>Google Memo</Logo>
       </LeftSection>
       <RightSection>
         <AccountCircleIcon fontSize="large" />

@@ -42,7 +42,7 @@ function ListBox() {
     <ListWrap>
       <RecentTitle>최근 검색어 리스트</RecentTitle>
       <Box>
-        {list.length == 0
+        {list.length === 0
           ? "최근에 검색하신 항목이 없습니다."
           : list.map((item, index) => (
               <SearchItem onClick={() => keywordClick(item)} key={index}>
