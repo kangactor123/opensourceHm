@@ -1,8 +1,8 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { IToDo } from "../interface";
-import { paging } from "../store";
-import { makeTotalPage } from "../util/makeTotalPage";
+import { IToDo } from "../../interface";
+import { paging } from "../../store";
+import { makeTotalPage } from "../../util/makeTotalPage";
 
 const Wrapper = styled.div`
   width: 60%;

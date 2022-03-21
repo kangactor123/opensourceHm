@@ -1,15 +1,16 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { paging, searchKeyword } from "../../store";
+import { paging } from "../../store";
 import MenuIcon from "@mui/icons-material/Menu";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useNavigate } from "react-router-dom";
 
 export const Wrapper = styled.header`
-  height: 80px;
-  background-color: #145da0;
+  height: 70px;
+  background-color: #42c2ff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,16 +31,6 @@ const RightSection = styled.div`
   gap: 15px;
 `;
 
-// const AlertImg = styled.img`
-//   width: 40px;
-//   height: 40px;
-//   cursor: pointer;
-//   transition: all ease 1s;
-//   &:hover {
-//     transform: scale(1.2);
-//   }
-// `;
-
 const LeftSection = styled.div`
   display: flex;
   width: 300px;
@@ -55,9 +46,16 @@ const PageSelecter = styled.select`
   background-color: inherit;
 `;
 
-function Header() {
+const Menu = styled(MenuIcon)`
+  cursor: pointer;
+`;
+interface HeaderProps {
+  handleMenuClick: () => void;
+}
+
+function Header(props: HeaderProps) {
   const setPage = useSetRecoilState(paging);
-  const setKeyword = useSetRecoilState(searchKeyword);
+  const navigator = useNavigate();
   const selectPaging = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPage((prev) => {
       return {
@@ -67,12 +65,12 @@ function Header() {
     });
   };
   const goHome = () => {
-    setKeyword("");
+    navigator("/opensourceHm");
   };
   return (
     <Wrapper>
       <LeftSection>
-        <MenuIcon fontSize="large" />
+        <Menu fontSize="large" onClick={props.handleMenuClick} />
         <Logo>Google Memo</Logo>
       </LeftSection>
       <RightSection>

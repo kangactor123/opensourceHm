@@ -98,3 +98,6 @@ $ npm run deploy
 
 - 컴포넌트 설계 리팩토링
 - 데이터 플로우 설계 다시하기
+- Menu 컴포넌트 만들기
+- Menu Box < Add, trash / Do, Done >
+- 3/21 : Input Page Refactoring

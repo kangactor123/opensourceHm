@@ -60,7 +60,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.light.font};
     user-select: none;
     overflow-x: hidden;
-    background-color: #BFD7ED;
+    background-color: #EFFFFD;
   }
   a {
     text-decoration: none;

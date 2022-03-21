@@ -1,18 +1,23 @@
+/*
+레거시 코드입니다.
+*/
+
 import React, { useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { deleteArrayFromToDos, saveInLocalStroage } from "../localStorage";
-import { choice, searchKeyword, toDos } from "../store";
-import Button from "./common/Button";
+import { deleteArrayFromToDos, saveInLocalStroage } from "../../localStorage";
+import { choice, searchKeyword, toDos } from "../../store";
+import Button from "../common/Button";
 
 const Wrapper = styled.div`
-  max-width: 660px;
   height: 20vh;
+  width: 660px;
+  margin: 0 auto;
   border: 1px solid black;
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 10px;
-  margin: 10px;
 `;
 
 export const InputBox = styled.form`
