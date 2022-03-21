@@ -1,13 +1,9 @@
-import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { saveSearchKeyword } from "../../localStorage";
 import { searchKeyword, searchList } from "../../store";
-import Button from "../common/Button";
-import { ButtonBox, InputBox } from "../InputSection";
 import DataList from "./DataList";
-import ListBox from "./ListBox";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Wrapper = styled.div`
@@ -19,11 +15,6 @@ const Wrapper = styled.div`
   justify-content: center;
   padding: 10px 10px 0 10px;
 `;
-
-// const SearchBox = styled(InputBox)`
-//   position: relative;
-//   width: 500px;
-// `;
 const SearchBox = styled.form`
   position: relative;
   width: 500px;
@@ -54,11 +45,7 @@ interface IKeyword {
 }
 
 function SearchSection() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IKeyword>();
+  const { register, handleSubmit, setValue } = useForm<IKeyword>();
   const setSearchList = useSetRecoilState(searchList);
   const setSearchKeyword = useSetRecoilState(searchKeyword);
 
@@ -68,6 +55,7 @@ function SearchSection() {
     });
     setSearchKeyword(data.keyword);
     saveSearchKeyword(data.keyword);
+    setValue("keyword", "");
   };
   return (
     <>
@@ -86,7 +74,6 @@ function SearchSection() {
           />
           <Icon />
         </SearchBox>
-        <div>{errors?.keyword?.message}</div>
         <DataList />
       </Wrapper>
     </>

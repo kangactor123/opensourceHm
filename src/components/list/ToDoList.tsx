@@ -7,6 +7,7 @@ import ToDoCard from "./ToDoCard";
 
 const Wrapper = styled.div`
   max-width: 660px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +34,7 @@ function ToDoList({ propList }: ListProps) {
 
   return (
     <Wrapper>
-      {list.length == 0 ? (
+      {list.length === 0 ? (
         <NoToDo>박스에 담긴 ToDo가 없습니다.</NoToDo>
       ) : (
         list.map((todo: IToDo) => (
