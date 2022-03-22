@@ -1,12 +1,13 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { paging } from "../../store";
+import { paging, searchKeyword } from "../../store";
 import MenuIcon from "@mui/icons-material/Menu";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 export const Wrapper = styled.header`
   height: 70px;
@@ -56,6 +57,7 @@ interface HeaderProps {
 function Header(props: HeaderProps) {
   const setPage = useSetRecoilState(paging);
   const navigator = useNavigate();
+  const [keyword, setSearchKeyword] = useRecoilState(searchKeyword);
   const selectPaging = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPage((prev) => {
       return {
@@ -65,7 +67,11 @@ function Header(props: HeaderProps) {
     });
   };
   const goHome = () => {
-    navigator("/opensourceHm");
+    if (keyword === "") {
+      navigator("/opensourceHm");
+    } else {
+      setSearchKeyword("");
+    }
   };
   return (
     <Wrapper>
@@ -77,6 +83,7 @@ function Header(props: HeaderProps) {
         <AccountCircleIcon fontSize="large" />
         <HomeIcon fontSize="large" onClick={goHome} />
         <RefreshIcon fontSize="large" />
+        <DeleteForeverIcon fontSize="large" />
         <PageSelecter onChange={selectPaging}>
           <option value={5}>5개</option>
           <option value={10}>10개</option>

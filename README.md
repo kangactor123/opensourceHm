@@ -101,3 +101,4 @@ $ npm run deploy
 - Menu 컴포넌트 만들기
 - Menu Box < Add, trash / Do, Done >
 - 3/21 : Input Page Refactoring
+- 3/22 : Update 모달 창 리뉴얼 및 수정할 데이터 노출되도록 Update, 컴포넌트 최적화 작업

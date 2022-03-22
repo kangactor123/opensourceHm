@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { IModal } from "../../interface";
@@ -63,8 +63,8 @@ function ToDoCard({ id = 0, text, deadline, done }: ToDoProps) {
       };
     });
   };
-  const coiceClick = () => {
-    if (choiceArray.findIndex((todo) => todo.id === id) != -1) {
+  const coiceClick = useCallback(() => {
+    if (choiceArray.findIndex((todo) => todo.id === id) !== -1) {
       setChoose((prev) => !prev);
       setChoiceArray((prev) => {
         return [...prev.filter((todo) => todo.id !== id)];
@@ -75,15 +75,14 @@ function ToDoCard({ id = 0, text, deadline, done }: ToDoProps) {
         return [...prev, { id }];
       });
     }
-  };
-  const deleteClick = () => {
+  }, []);
+  const deleteClick = useCallback(() => {
     if (window.confirm("정말 삭제하시겠나요?")) {
       const newList = deleteOneFromToDos({ id, title: text, done, deadline });
-
       setLocalTodos(newList);
     }
-  };
-  const doneClick = () => {
+  }, []);
+  const doneClick = useCallback(() => {
     const newToDo = {
       id,
       title: text,
@@ -96,7 +95,7 @@ function ToDoCard({ id = 0, text, deadline, done }: ToDoProps) {
     });
     setDoing((prev) => !prev);
     updateFromLocalStorage(newToDo);
-  };
+  }, []);
   return (
     <CardWrapper
       dead={
@@ -127,4 +126,4 @@ function ToDoCard({ id = 0, text, deadline, done }: ToDoProps) {
   );
 }
 
-export default ToDoCard;
+export default React.memo(ToDoCard);
