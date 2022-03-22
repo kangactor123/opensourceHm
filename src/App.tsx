@@ -7,8 +7,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/add" element={<Add />} />
-      </Routes>
-      <Routes>
         <Route path="/opensourceHm" element={<Home />} />
       </Routes>
     </BrowserRouter>

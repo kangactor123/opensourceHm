@@ -1,3 +1,4 @@
+import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
@@ -57,4 +58,4 @@ function PagingSection({ propsList }: PagingProps) {
   );
 }
 
-export default PagingSection;
+export default React.memo(PagingSection);
