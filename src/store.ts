@@ -8,7 +8,7 @@ const searchKeywordList = getSearchKeyword();
 export const modalActive = atom<IModal>({
   key: "modalActive",
   default: {
-    id: Date.now(),
+    id: 0,
     active: false,
   },
 });

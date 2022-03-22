@@ -66,4 +66,9 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color:inherit;
   }
+  input {
+    &:focus {
+      outline:none;
+    }
+  }
 `;

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import UpdateBoard from "./UpdateBoard";
+import UpdateBoard from "../update/UpdateBoard";
 
 const Wrapper = styled(motion.div)`
   position: fixed;
