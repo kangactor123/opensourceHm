@@ -2,9 +2,6 @@ import { atom } from "recoil";
 import { IChoice, IModal, IPage, IToDo } from "./interface";
 import { getFromLocalStroage, getSearchKeyword } from "./localStorage";
 
-const localToDos = getFromLocalStroage();
-const searchKeywordList = getSearchKeyword();
-
 export const modalActive = atom<IModal>({
   key: "modalActive",
   default: {
@@ -15,7 +12,7 @@ export const modalActive = atom<IModal>({
 
 export const toDos = atom<IToDo[]>({
   key: "toDos",
-  default: localToDos,
+  default: getFromLocalStroage(),
 });
 
 export const paging = atom<IPage>({
@@ -33,7 +30,7 @@ export const choice = atom<IChoice[]>({
 
 export const searchList = atom<string[]>({
   key: "searchList",
-  default: searchKeywordList,
+  default: getSearchKeyword(),
 });
 
 export const searchKeyword = atom<string>({

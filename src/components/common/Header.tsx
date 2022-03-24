@@ -77,7 +77,7 @@ function Header(props: HeaderProps) {
     <Wrapper>
       <LeftSection>
         <Menu fontSize="large" onClick={props.handleMenuClick} />
-        <Logo>Google Memo</Logo>
+        <Logo>Memo</Logo>
       </LeftSection>
       <RightSection>
         <AccountCircleIcon fontSize="large" />
@@ -95,4 +95,4 @@ function Header(props: HeaderProps) {
   );
 }
 
-export default Header;
+export default React.memo(Header);

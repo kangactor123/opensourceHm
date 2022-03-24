@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
@@ -35,7 +35,9 @@ interface PagingProps {
 
 function PagingSection({ propsList }: PagingProps) {
   const [page, setPage] = useRecoilState(paging);
-  const pageNumbers = makeTotalPage(propsList.length, page.pageValue);
+  const pageNumbers = useMemo(() => {
+    return makeTotalPage(propsList.length, page.pageValue);
+  }, [propsList, page]);
 
   const clickPage = (page: number) => {
     setPage((prev) => {

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
@@ -44,4 +45,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default React.memo(Button);

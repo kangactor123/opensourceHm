@@ -9,7 +9,7 @@ import SearchSection from "../components/search/SearchSection";
 import { IToDo } from "../interface";
 import { modalActive, searchKeyword, toDos } from "../store";
 import { makeKeywordList } from "../util/makeKeywordList";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ToDoList from "../components/list/ToDoList";
 
 const Container = styled.div`
@@ -23,9 +23,9 @@ function Home() {
   const localToDos = useRecoilValue<IToDo[]>(toDos);
   const keyword = useRecoilValue(searchKeyword);
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const handleMenuClick = () => {
+  const handleMenuClick = useCallback(() => {
     setMenuOpen((prev) => !prev);
-  };
+  }, []);
   const list =
     keyword.length === 0 ? localToDos : makeKeywordList(localToDos, keyword);
   return (

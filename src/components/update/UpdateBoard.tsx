@@ -1,4 +1,3 @@
-import React, { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { IToDo, IModal } from "../../interface";
@@ -18,18 +17,15 @@ function UpdateBoard() {
   const [toDoList, setToDoList] = useRecoilState(toDos);
   const { register, handleSubmit } = useForm<IToDo>();
   const localToDos = useRecoilValue<IToDo[]>(toDos);
-  const toDo = useMemo(
-    () => localToDos.find((toDo) => toDo.id === modal.id),
-    []
-  );
-  const exitModal = useCallback(() => {
+  const toDo = localToDos.find((toDo) => toDo.id === modal.id);
+  const exitModal = () => {
     setModal((prev) => {
       return {
         active: !prev.active,
         id: modal.id,
       };
     });
-  }, []);
+  };
 
   const onValid = (data: IToDo) => {
     const newToDo = {
@@ -77,4 +73,4 @@ function UpdateBoard() {
   );
 }
 
-export default React.memo(UpdateBoard);
+export default UpdateBoard;

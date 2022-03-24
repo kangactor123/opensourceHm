@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
@@ -25,8 +26,9 @@ interface ListProps {
 }
 
 function ToDoList({ propList }: ListProps) {
-  const sorting = sortList(propList);
   const page = useRecoilValue(paging);
+  const sorting = useMemo(() => sortList(propList), [propList]);
+  // const sorting = sortList(propList);
   const list = sorting.slice(
     (page.nowPage - 1) * page.pageValue,
     page.nowPage * page.pageValue
