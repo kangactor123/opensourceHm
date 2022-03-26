@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
@@ -28,7 +28,7 @@ interface ListProps {
 function ToDoList({ propList }: ListProps) {
   const page = useRecoilValue(paging);
   const sorting = useMemo(() => sortList(propList), [propList]);
-  // const sorting = sortList(propList);
+
   const list = sorting.slice(
     (page.nowPage - 1) * page.pageValue,
     page.nowPage * page.pageValue
@@ -36,7 +36,7 @@ function ToDoList({ propList }: ListProps) {
 
   return (
     <Wrapper>
-      {list.length === 0 ? (
+      {list.length === 0 && page.nowPage === 1 ? (
         <NoToDo>박스에 담긴 ToDo가 없습니다.</NoToDo>
       ) : (
         list.map((todo: IToDo) => (
