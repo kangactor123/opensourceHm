@@ -62,7 +62,7 @@ function SearchSection() {
       <Wrapper>
         <SearchBox onSubmit={handleSubmit(onValid)}>
           <SearchBar
-            placeholder="검색어를 입력하세요"
+            placeholder="Please Input Keyword.."
             list="searchList"
             {...register("keyword", {
               required: "검색어를 입력해주세요.",

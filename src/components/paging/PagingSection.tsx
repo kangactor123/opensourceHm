@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
@@ -21,12 +21,11 @@ const PageList = styled.ul`
   gap: 10px;
 `;
 
-const Page = styled.li`
+const Page = styled.li<{ isNow: boolean }>`
   cursor: pointer;
   font-size: 1.2em;
-  &:hover {
-    color: red;
-  }
+  font-weight: 600;
+  color: ${(props) => (props.isNow ? "blue" : "black")};
 `;
 
 interface PagingProps {
@@ -38,8 +37,9 @@ function PagingSection({ propsList }: PagingProps) {
   const pageNumbers = useMemo(() => {
     return makeTotalPage(propsList.length, page.pageValue);
   }, [propsList, page]);
-
+  const [nowPage, setNowPage] = useState(1);
   const clickPage = (page: number) => {
+    setNowPage(page);
     setPage((prev) => {
       return {
         nowPage: page,
@@ -47,11 +47,16 @@ function PagingSection({ propsList }: PagingProps) {
       };
     });
   };
+
   return (
     <Wrapper>
       <PageList>
         {pageNumbers.map((number) => (
-          <Page key={number} onClick={() => clickPage(number)}>
+          <Page
+            key={number}
+            onClick={() => clickPage(number)}
+            isNow={nowPage === number ? true : false}
+          >
             {number}
           </Page>
         ))}

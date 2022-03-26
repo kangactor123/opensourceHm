@@ -31,20 +31,20 @@ export default function InputSectionn() {
   };
   return (
     <Wrapper onSubmit={handleSubmit(onValid)}>
-      <FormTitle>투두 생성하기</FormTitle>
+      <FormTitle>Create TODO</FormTitle>
       <InputBox>
-        <InputName>기 한 : </InputName>
+        <InputName>Deadline</InputName>
         <InputDate
           type="date"
           {...register("deadline", {
-            required: "날짜를 입력해주세요",
+            required: "Please Input deadline..",
           })}
         />
       </InputBox>
       <InputBox>
-        <InputName>할 일 : </InputName>
+        <InputName>Content</InputName>
         <InputToDo
-          placeholder="20글자 이내로 입력해주세요."
+          placeholder="Please Input your content.."
           {...register("title", {
             required: "할 일을 입력해주세요.",
             minLength: {
@@ -58,7 +58,7 @@ export default function InputSectionn() {
           })}
         />
       </InputBox>
-      <SubmitButton type="submit">생성하기</SubmitButton>
+      <SubmitButton type="submit">Create</SubmitButton>
     </Wrapper>
   );
 }
