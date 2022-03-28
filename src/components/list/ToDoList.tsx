@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IToDo } from "../../interface";
 import { paging } from "../../store";
+import getKeywordList from "../../util/getKeywordList";
 import { sortList } from "../../util/sort";
 import ToDoCard from "./ToDoCard";
 
@@ -23,12 +24,20 @@ const NoToDo = styled.div`
 
 interface ListProps {
   propList: IToDo[];
+  kind?: string;
 }
 
-function ToDoList({ propList }: ListProps) {
+function ToDoList({ propList, kind }: ListProps) {
   const page = useRecoilValue(paging);
-  const sorting = useMemo(() => sortList(propList), [propList]);
-
+  // const sorting = useMemo(() => {
+  //   return sortList(propList);
+  // }, [propList]);
+  // undefined 일 경우 일반 Home , 아닐 경우 Did or Do
+  const sorting = useMemo(() => {
+    return kind === undefined
+      ? sortList(propList)
+      : getKeywordList(kind, propList);
+  }, [propList, kind]);
   const list = sorting.slice(
     (page.nowPage - 1) * page.pageValue,
     page.nowPage * page.pageValue
