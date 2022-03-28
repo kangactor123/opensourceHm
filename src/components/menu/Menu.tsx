@@ -72,7 +72,7 @@ function Menu() {
       </MenuBox>
       <MenuBox>
         <DeleteIcon />
-        <MenuName>Trash</MenuName>
+        <Link to="/trash">Trash</Link>
       </MenuBox>
       <MenuBox>
         <CheckIcon />
