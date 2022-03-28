@@ -107,3 +107,4 @@ $ npm run deploy
 ## Issue
 
 - 검색 후 삭제했을때 리스트가 비어졌을시 돌아가야함
+- isMenuOpen Custom 훅으로 빼기

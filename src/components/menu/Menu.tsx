@@ -37,10 +37,6 @@ const MenuBox = styled.div`
   }
 `;
 
-const MenuName = styled.span`
-  display: flex;
-`;
-
 const WrapperVariants = {
   initial: {
     opacity: 0,
@@ -76,11 +72,11 @@ function Menu() {
       </MenuBox>
       <MenuBox>
         <CheckIcon />
-        <MenuName>Did</MenuName>
+        <Link to="/divide?kind=done">Done</Link>
       </MenuBox>
       <MenuBox>
         <AccessibilityNewIcon />
-        <MenuName>Do</MenuName>
+        <Link to="/divide?kind=do">do</Link>
       </MenuBox>
     </Wrapper>
   );
