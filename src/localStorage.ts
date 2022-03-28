@@ -86,6 +86,7 @@ export function updateFromLocalStorage(toDo: IToDo) {
 }
 
 export function deleteOneFromToDos(toDo: IToDo) {
+  setTrashToDos(toDo);
   const localToDo: IToDo[] = JSON.parse(
     localStorage.getItem("TODOS") as string
   );
@@ -103,4 +104,37 @@ export function deleteArrayFromToDos(toDos: IChoice[]) {
   }
   localStorage.setItem("TODOS", JSON.stringify(newList));
   return newList;
+}
+
+/**
+ * 쓰래기통 만들기
+ * 쓰래기통 localStorage 만들고 거기 안에 넣자
+ * atom으로 만들지 말고 그냥 localStorage만 이용?
+ * 같은게 있으면 삭제 안되게 해야함
+ **/
+
+export function setTrashToDos(toDo: IToDo): void {
+  const trashToDos: IToDo[] = JSON.parse(
+    localStorage.getItem("TRASH_TODOS") as string
+  );
+
+  if (trashToDos === null) {
+    localStorage.setItem("TRASH_TODOS", JSON.stringify([toDo]));
+  } else {
+    //Trash에 겹치는 ToDo가 있나 검사
+    for (let i = 0; i < trashToDos.length; i++) {
+      if (trashToDos[i].id === toDo.id) {
+        return;
+      }
+    }
+    localStorage.setItem("TRASH_TODOS", JSON.stringify([...trashToDos, toDo]));
+  }
+}
+
+export function getTrashToDos(): IToDo[] {
+  const trashToDos: IToDo[] = JSON.parse(
+    localStorage.getItem("TRASH_TODOS") as string
+  );
+
+  return trashToDos === null ? [] : trashToDos;
 }
