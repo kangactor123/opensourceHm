@@ -1,41 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-import { motion } from "framer-motion";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
-import { Link } from "react-router-dom";
-
-const Wrapper = styled(motion.div)`
-  position: absolute;
-  width: 20vw;
-  top: 70px;
-  background-color: white;
-  z-index: 99;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 5px;
-  border-radius: 3px;
-  background-color: #b8fff9;
-`;
-
-const MenuBox = styled.div`
-  display: flex;
-  height: 50px;
-  border: 1px solid #85f4ff;
-  border-radius: 5px;
-  align-items: center;
-  padding-left: 20px;
-  gap: 25px;
-  background-color: #85f4ff;
-  &:hover {
-    cursor: pointer;
-    transform: translateY(-2px);
-    font-size: 14px;
-  }
-`;
+import { Box, BoxTitle, Wrapper } from "./menu.style";
 
 const WrapperVariants = {
   initial: {
@@ -62,22 +30,22 @@ function Menu() {
       animate="animate"
       exit="exit"
     >
-      <MenuBox>
+      <Box to="/add">
         <AddIcon />
-        <Link to="/add">Add</Link>
-      </MenuBox>
-      <MenuBox>
+        <BoxTitle>Add</BoxTitle>
+      </Box>
+      <Box to="/trash">
         <DeleteIcon />
-        <Link to="/trash">Trash</Link>
-      </MenuBox>
-      <MenuBox>
+        <BoxTitle>Trash</BoxTitle>
+      </Box>
+      <Box to="/divide?kind=done">
         <CheckIcon />
-        <Link to="/divide?kind=done">Done</Link>
-      </MenuBox>
-      <MenuBox>
+        <BoxTitle>Done</BoxTitle>
+      </Box>
+      <Box to="/divide?kind=do">
         <AccessibilityNewIcon />
-        <Link to="/divide?kind=do">do</Link>
-      </MenuBox>
+        <BoxTitle>do</BoxTitle>
+      </Box>
     </Wrapper>
   );
 }

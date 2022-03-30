@@ -10,7 +10,7 @@ import {
   DeadLine,
   Content,
   BtnBox,
-} from "./card.style";
+} from "./style/card.style";
 
 interface ToDoProps {
   id?: number;
