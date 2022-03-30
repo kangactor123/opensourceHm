@@ -1,11 +1,11 @@
 import Header from "../components/common/Header";
 import InputSection from "../components/input/InputSection";
 import Menu from "../components/menu/Menu";
-import { useState } from "react";
 import { Container } from "./style/common.style";
+import useIsMenuOpen from "../hooks/useMenuOpen";
 
 function Home() {
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useIsMenuOpen();
   const handleMenuClick = () => {
     setMenuOpen((prev) => !prev);
   };

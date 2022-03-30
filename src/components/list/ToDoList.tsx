@@ -1,26 +1,11 @@
 import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
 import { IToDo } from "../../interface";
 import { paging } from "../../store";
 import getKeywordList from "../../util/getKeywordList";
 import { sortList } from "../../util/sort";
+import { NoToDo, Wrapper } from "./style/list.style";
 import ToDoCard from "./ToDoCard";
-
-const Wrapper = styled.div`
-  max-width: 660px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-`;
-
-const NoToDo = styled.div`
-  font-size: 1.3em;
-  font-family: "Times New Roman", Times, serif;
-`;
 
 interface ListProps {
   propList: IToDo[];
@@ -29,9 +14,6 @@ interface ListProps {
 
 function ToDoList({ propList, kind }: ListProps) {
   const page = useRecoilValue(paging);
-  // const sorting = useMemo(() => {
-  //   return sortList(propList);
-  // }, [propList]);
   // undefined 일 경우 일반 Home , 아닐 경우 Did or Do
   const sorting = useMemo(() => {
     return kind === undefined

@@ -1,44 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { saveSearchKeyword } from "../../localStorage";
 import { searchKeyword, searchList } from "../../store";
 import DataList from "./DataList";
-import SearchIcon from "@mui/icons-material/Search";
-
-const Wrapper = styled.div`
-  height: 10vh;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 10px 0 10px;
-`;
-const SearchBox = styled.form`
-  position: relative;
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const Icon = styled(SearchIcon)`
-  position: absolute;
-  right: 30px;
-`;
-
-const SearchBar = styled.input`
-  width: 100%;
-  height: 35px;
-  background-color: #ffffff;
-  border: 0;
-  padding-left: 10px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  &:focus {
-    outline: none;
-  }
-`;
+import {
+  Icon,
+  SearchBar,
+  SearchBox,
+  SearchWrapper,
+} from "./style/search.style";
 
 interface IKeyword {
   keyword: string;
@@ -59,7 +29,7 @@ function SearchSection() {
   };
   return (
     <>
-      <Wrapper>
+      <SearchWrapper>
         <SearchBox onSubmit={handleSubmit(onValid)}>
           <SearchBar
             placeholder="Please Input Keyword.."
@@ -75,7 +45,7 @@ function SearchSection() {
           <Icon />
         </SearchBox>
         <DataList />
-      </Wrapper>
+      </SearchWrapper>
     </>
   );
 }
