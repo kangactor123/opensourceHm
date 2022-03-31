@@ -1,9 +1,10 @@
+import { IChoice, IToDo } from "./interface";
+
 /* key 값
 search : "SEARCH"
 toDo : "TODOS"
+trash : "TRASH"
 */
-
-import { IChoice, IToDo } from "./interface";
 
 /* SearchKeyword */
 export function saveSearchKeyword(keyword: string) {
@@ -26,7 +27,7 @@ export function getSearchKeyword() {
 }
 
 /*
-TODO
+TODO)
 
 saveInLocalStroage : localStorage에 저장
 

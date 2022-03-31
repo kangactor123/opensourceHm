@@ -1,9 +1,10 @@
 import React from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { choice, paging, searchKeyword, toDos } from "../../store";
-import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import { deleteArrayFromToDos } from "../../localStorage";
 import {
   Wrapper,
@@ -57,6 +58,11 @@ function Header(props: HeaderProps) {
     }
   };
 
+  const handleSearchDelete = () => {
+    localStorage.removeItem("SEARCH");
+    alert("최근 검색어 목록을 삭제하였습니다.");
+  };
+
   return (
     <Wrapper>
       <LeftSection>
@@ -66,6 +72,7 @@ function Header(props: HeaderProps) {
       <RightSection>
         <HomeIcon fontSize="large" onClick={goHome} />
         <DeleteForeverIcon fontSize="large" onClick={handleMulDelete} />
+        <DeleteSweepIcon fontSize="large" onClick={handleSearchDelete} />
         <PageSelecter onChange={selectPaging}>
           <option value={5}>5</option>
           <option value={10}>10</option>

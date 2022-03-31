@@ -32,6 +32,7 @@ function SearchSection() {
       <SearchWrapper>
         <SearchBox onSubmit={handleSubmit(onValid)}>
           <SearchBar
+            autoComplete="off"
             placeholder="Please Input Keyword.."
             list="searchList"
             {...register("keyword", {

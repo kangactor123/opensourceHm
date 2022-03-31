@@ -96,15 +96,12 @@ $ npm run deploy
 
 ## Refactoring (3/17 ~ )
 
-- 컴포넌트 설계 리팩토링
 - 데이터 플로우 설계 다시하기
-- Menu 컴포넌트 만들기
-- Menu Box < Add, trash / Do, Done >
 - 3/21 : Input Page Refactoring
 - 3/22 : Update 모달 창 리뉴얼 및 수정할 데이터 노출되도록 Update, 컴포넌트 최적화 작업
-- 3/28 : Trash 쓰래기통 구현 (localStorage 이용)
+- 3/28 : Trash 쓰래기통 구현 (localStorage 이용), Did, Done 구현
+- 3/30 : isMenuOpen state Custom Hook 으로 빼고 style 파일 분리
 
 ## Issue
 
 - 검색 후 삭제했을때 리스트가 비어졌을시 돌아가야함
-- isMenuOpen Custom 훅으로 빼기
