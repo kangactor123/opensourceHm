@@ -44,7 +44,7 @@ function Menu() {
       </Box>
       <Box to="/divide?kind=do">
         <AccessibilityNewIcon />
-        <BoxTitle>do</BoxTitle>
+        <BoxTitle>Do</BoxTitle>
       </Box>
     </Wrapper>
   );
