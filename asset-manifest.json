@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/opensourceHm/static/js/main.46026ca4.js",
+    "main.js": "/opensourceHm/static/js/main.b8d5e0fe.js",
     "index.html": "/opensourceHm/index.html",
-    "main.46026ca4.js.map": "/opensourceHm/static/js/main.46026ca4.js.map"
+    "main.b8d5e0fe.js.map": "/opensourceHm/static/js/main.b8d5e0fe.js.map"
   },
   "entrypoints": [
-    "static/js/main.46026ca4.js"
+    "static/js/main.b8d5e0fe.js"
   ]
 }
