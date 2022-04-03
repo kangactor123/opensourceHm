@@ -8,8 +8,13 @@ export const CardWrapper = styled.div<{ dead: boolean }>`
   padding: 10px;
   gap: 10px;
   border: ${(props) => (props.dead ? "2px" : "1px")} solid
-    ${(props) => (props.dead ? "red" : "black")};
+    ${(props) => (props.dead ? "rgba(225, 112, 112, 0.8)" : "gray")};
   margin: 10px;
+  border-radius: 10px;
+  box-shadow: 1px -1px 3px ${(props) => (props.dead ? "red" : "gray")};
+  &:hover {
+    transform: translateY(-2px);
+  }
 `;
 
 export const ContentBox = styled.div`
